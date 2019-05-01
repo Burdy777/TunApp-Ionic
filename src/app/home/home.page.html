@@ -1,14 +1,55 @@
 <ion-header>
-  <ion-toolbar>
+  <ion-toolbar color="warning">
     <ion-title>
-      Ionic Blank
+      M'Tun
     </ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
-  <div class="ion-padding">
-    The world is your oyster.
-    <p>If you get lost, the <a target="_blank" rel="noopener" href="https://ionicframework.com/docs/">docs</a> will be your guide.</p>
-  </div>
+<ion-grid>
+      <ion-row>
+        <ion-col size-md="6" offset-md="3">
+          <ion-card>
+            <ion-card-header>
+              <ion-card-title>Ajouter une dépense</ion-card-title>
+            </ion-card-header>
+            <ion-card-content>
+              <form [formGroup]="tunForm" (ngSubmit)="addTun()">
+                   <ion-item>
+                <ion-label position="floating">Nom</ion-label>
+                <ion-input formControlName="name" type="password" ></ion-input>
+              </ion-item>
+              <ion-item>
+                <ion-label position="floating">Prix</ion-label>
+                <ion-input formControlName="price" type="number"></ion-input>
+              </ion-item>
+              <ion-grid>
+                  <ion-row>
+                      <ion-col size="5">
+                          <ion-button color="danger" fill="outline" (click)="tunForm.reset()">
+                              Annuler
+                              <ion-icon slot="end"name="trash"></ion-icon>
+                            </ion-button>
+                      </ion-col>
+                    <ion-col size="5" offset-xs="1">
+                        <ion-button type="submit" color="warning" [disabled]="tunForm.invalid">Ajouter
+                            <ion-icon slot="end" name="add-circle-outline"></ion-icon>
+                        </ion-button>
+                      </ion-col>
+                  </ion-row>
+                </ion-grid>
+              </form>
+            </ion-card-content>
+          </ion-card>
+      </ion-col>
+      </ion-row>
+</ion-grid>
+ 
+        <ion-list lines="unset">
+            <ion-item *ngFor="let tun of tunList; let i=index">
+              <ion-label class="ion-text-start">{{tun.name}}</ion-label>
+              <ion-text class="ion-text-end">{{tun.price}}€</ion-text>
+            </ion-item>
+          </ion-list>
 </ion-content>
