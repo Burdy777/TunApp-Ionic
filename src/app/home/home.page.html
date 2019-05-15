@@ -16,20 +16,27 @@
             </ion-card-header>
             <ion-card-content>
               <form [formGroup]="tunForm" (ngSubmit)="addTun()">
-                   <ion-item>
-                <ion-label position="floating">Nom</ion-label>
-                <ion-input formControlName="name" type="password" ></ion-input>
-              </ion-item>
               <ion-item>
-                <ion-label position="floating">Prix</ion-label>
+                <ion-label position="floating">* Nom </ion-label>
+                <ion-input formControlName="name" required></ion-input>
+              </ion-item>
+              <div *ngIf="name.invalid && (name.touched || name.dirty)">
+                  <span *ngIf="name.hasError('required')" class="error_text_error"> Champs requis </span>
+                  <span *ngIf="name.hasError('maxlength')" class="error_text_error"> 20 caractères maximum</span>
+              </div>
+              <ion-item>
+                <ion-label position="floating"> * Prix </ion-label>
                 <ion-input formControlName="price" type="number"></ion-input>
               </ion-item>
+              <div *ngIf="price.invalid && (price.touched || price.dirty)">
+                  <span *ngIf="price.hasError('required')" class="error_text_error"> Saisissez un montant</span>
+              </div>
               <ion-grid>
                   <ion-row>
                       <ion-col size="5">
                           <ion-button color="danger" fill="outline" (click)="tunForm.reset()">
                               Annuler
-                              <ion-icon slot="end"name="trash"></ion-icon>
+                              <ion-icon slot="end" name="trash"></ion-icon>
                             </ion-button>
                       </ion-col>
                     <ion-col size="5" offset-xs="1">
@@ -46,10 +53,22 @@
       </ion-row>
 </ion-grid>
  
-        <ion-list lines="unset">
-            <ion-item *ngFor="let tun of tunList; let i=index">
-              <ion-label class="ion-text-start">{{tun.name}}</ion-label>
-              <ion-text class="ion-text-end">{{tun.price}}€</ion-text>
-            </ion-item>
-          </ion-list>
+        <ion-list *ngIf="tunList.length > 0" lines="unset">
+          <ion-grid>
+              <ion-row  *ngFor="let tun of tunList; let i=index" class="ion-justify-content-between" [ngClass]="{done: tunList[i].done}" >
+                  <ion-col size="5">
+                      <ion-text>{{tun.name}}</ion-text>
+                  </ion-col>
+                  <ion-col size="2">
+                        <ion-text>{{tun.price}}€</ion-text>
+                  </ion-col>
+                      <ion-item style="margin:-0.8em">
+                        <ion-checkbox slot="start" color="warning" [(ngModel)]="tunList[i].done"></ion-checkbox>
+                      </ion-item>
+                      <ion-item style="margin:-0.5em" (click)="delete(i, tun.name)">
+                         <ion-icon color="danger" name="trash"></ion-icon>
+                        </ion-item>
+                </ion-row>
+          </ion-grid>
+    </ion-list>
 </ion-content>

@@ -1,1 +1,15 @@
+.error_text_error {
+    color:red;
+}
 
+.done {
+color:grey; 
+font-style: italic;
+}
+
+ion-item{
+    --highlight-color-valid:#ffce00;
+}
+ion-col {
+    --ion-padding: 2em;
+}

@@ -1,0 +1,11 @@
+{
+    "android": {
+        "release": {
+            "keystore": "res/native/android/my-release-key.keystore",
+            "storePassword": "Burdy77*",
+            "alias": "m_tun",
+            "password": "Burdy77*",
+            "keystoreType": ""
+        }
+    }
+}
